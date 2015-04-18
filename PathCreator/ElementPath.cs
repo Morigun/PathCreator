@@ -16,6 +16,18 @@ namespace PathCreator
             set;
         }
 
+        public List<eDirection> eDirArr
+        {
+            get;
+            set;
+        }
+
+        public List<ePovorot> ePovArr
+        {
+            get;
+            set;
+        }
+
         public ePovorot pov
         {
             get;
@@ -52,8 +64,10 @@ namespace PathCreator
             this.bGlav = true;
             this.bEnd = false;
             SetPovorot(1);
+            this.ePovArr = new List<ePovorot>();
             SetDirection(1);
-            this.Cord = new Coordinats.Coord(0, 0);
+            this.eDirArr = new List<eDirection>();
+            SetCoord(0, 0);
         }
         public ElementPath(int iLen, int i, int p, int d, int x, int y)
         {
@@ -64,9 +78,11 @@ namespace PathCreator
             else
                 this.bGlav = false;
             this.bEnd = false;
+            this.ePovArr = new List<ePovorot>();
             SetPovorot(p);
+            this.eDirArr = new List<eDirection>();
             SetDirection(d);
-            this.Cord = new Coordinats.Coord(x, y);
+            SetCoord(x, y);
         }
 
         public void SetEnd()
@@ -80,12 +96,15 @@ namespace PathCreator
             {
                 case 0:
                     this.pov = ePovorot.Simple;
+                    this.ePovArr.Add(ePovorot.Simple);
                     break;
                 case 1:
                     this.pov = ePovorot.Two;
+                    this.ePovArr.Add(ePovorot.Two);
                     break;
                 case 2:
                     this.pov = ePovorot.Triple;
+                    this.ePovArr.Add(ePovorot.Triple);
                     break;
             }            
         }
@@ -96,17 +115,52 @@ namespace PathCreator
             {
                 case 0:
                     this.dir = eDirection.north;
+                    this.eDirArr.Add(eDirection.north);
                     break;
                 case 1:
                     this.dir = eDirection.east;
+                    this.eDirArr.Add(eDirection.east);
                     break;
                 case 2:
                     this.dir = eDirection.south;
+                    this.eDirArr.Add(eDirection.south);
                     break;
                 case 3:
                     this.dir = eDirection.west;
+                    this.eDirArr.Add(eDirection.west);
                     break;
             } 
+        }
+
+        public eDirection GetPrevDir()
+        {
+            if (this.eDirArr.Count > 1)
+                return this.eDirArr[this.eDirArr.Count - 2];
+            else
+                return this.eDirArr[this.eDirArr.Count - 1];
+        }
+
+        public ePovorot GetPrevPov()
+        {
+            if (this.ePovArr.Count > 1)
+                return this.ePovArr[this.ePovArr.Count - 2];
+            else
+                return this.ePovArr[this.ePovArr.Count - 1];
+        }
+
+        public void SetCoord(int x, int y)
+        {
+            this.Cord = new Coordinats.Coord(x, y);
+        }
+
+        public void SetCoord(Coordinats.Coord c)
+        {
+            this.Cord = c;
+        }
+
+        public void SetLength()
+        {
+            this.iLength--;
         }
     }
 }
