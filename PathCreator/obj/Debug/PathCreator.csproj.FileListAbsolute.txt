@@ -1,0 +1,6 @@
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\bin\Debug\PathCreator.exe.config
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\obj\Debug\PathCreator.csprojResolveAssemblyReference.cache
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\bin\Debug\PathCreator.exe
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\bin\Debug\PathCreator.pdb
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\obj\Debug\PathCreator.exe
+D:\Проекты\MSVS\C#\PathCreator\PathCreator\obj\Debug\PathCreator.pdb
