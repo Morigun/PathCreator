@@ -23,7 +23,6 @@ namespace PathCreator
 
             public Coord (int iX, int iY) : this()
             {
-                Console.WriteLine("X {0} Y {1}", iX, iY);
                 x = iX;
                 y = iY;
             }

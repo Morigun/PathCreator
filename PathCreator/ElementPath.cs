@@ -49,7 +49,7 @@ namespace PathCreator
             get;
             set;
         }
-        public Coordinats.Coord Cord = new Coordinats.Coord(0, 0);
+        public List<Coordinats.Coord> Cord;
 
         int ID
         {
@@ -63,10 +63,11 @@ namespace PathCreator
             this.iLength = 0;
             this.bGlav = true;
             this.bEnd = false;
-            SetPovorot(1);
             this.ePovArr = new List<ePovorot>();
-            SetDirection(1);
+            SetPovorot(1);
             this.eDirArr = new List<eDirection>();
+            SetDirection(1);
+            this.Cord = new List<Coordinats.Coord>();
             SetCoord(0, 0);
         }
         public ElementPath(int iLen, int i, int p, int d, int x, int y)
@@ -82,6 +83,7 @@ namespace PathCreator
             SetPovorot(p);
             this.eDirArr = new List<eDirection>();
             SetDirection(d);
+            this.Cord = new List<Coordinats.Coord>();
             SetCoord(x, y);
         }
 
@@ -140,6 +142,48 @@ namespace PathCreator
                 return this.eDirArr[this.eDirArr.Count - 1];
         }
 
+        public int GetPrevDirInt()
+        {
+            int iMin;
+            if (this.eDirArr.Count > 1)            
+                iMin = 2;
+            else
+                iMin = 1;            
+            switch (this.eDirArr[this.eDirArr.Count - iMin])
+            {
+                case eDirection.east:
+                    return 1;
+                case eDirection.north:
+                    return 0;
+                case eDirection.south:
+                    return 2;
+                case eDirection.west:
+                    return 3;
+            }
+            return 0;
+        }
+
+        public int GetTecDirInt()
+        {            
+             switch (this.eDirArr[this.eDirArr.Count - 1])
+             {
+                 case eDirection.east:
+                     return 1;
+                 case eDirection.north:
+                     return 0;
+                 case eDirection.south:
+                     return 2;
+                 case eDirection.west:
+                     return 3;
+             }
+             return 0;
+        }
+
+        public eDirection GetTecDir()
+        {            
+            return this.eDirArr[this.eDirArr.Count - 1];
+        }
+
         public ePovorot GetPrevPov()
         {
             if (this.ePovArr.Count > 1)
@@ -148,19 +192,89 @@ namespace PathCreator
                 return this.ePovArr[this.ePovArr.Count - 1];
         }
 
+        public int GetPrevPovInt()
+        {
+            int iMin;
+            if (this.ePovArr.Count > 1)
+                iMin = 2;
+            else
+                iMin = 1; 
+            switch (this.ePovArr[this.ePovArr.Count - iMin])
+            {
+                case ePovorot.Simple:
+                    return 0;
+                case ePovorot.Two:
+                    return 1;
+                case ePovorot.Triple:
+                    return 2;
+            }
+            return 0;
+        }
+
+        public int GetTecPovInt()
+        {
+            switch (this.ePovArr[this.ePovArr.Count - 1])
+            {
+                case ePovorot.Simple:
+                    return 0;
+                case ePovorot.Two:
+                    return 1;
+                case ePovorot.Triple:
+                    return 2;
+            }
+            return 0;
+        }
+
+        public ePovorot GetTecPov()
+        {
+            return this.ePovArr[this.ePovArr.Count - 1];
+        }
+
         public void SetCoord(int x, int y)
         {
-            this.Cord = new Coordinats.Coord(x, y);
+            this.Cord.Add(new Coordinats.Coord(x, y));
         }
 
         public void SetCoord(Coordinats.Coord c)
         {
-            this.Cord = c;
+            this.Cord.Add(c);
         }
 
         public void SetLength()
         {
             this.iLength--;
+        }
+
+        public static int CheckDir(int i)
+        {
+            if (i < 25)
+            {
+                return 0;
+            }
+            else if (i >= 25 && i < 50)
+            {
+                return 1;
+            }
+            else if (i >= 50 && i < 75)
+            {
+                return 2;
+            }
+            else 
+                return 3;
+        }
+
+        public static int CheckPov(int i)
+        {
+            if (i < 33)
+            {
+                return 0;
+            }
+            else if (i >= 33 && i < 66)
+            {
+                return 1;
+            }
+            else 
+                return 2;
         }
     }
 }
